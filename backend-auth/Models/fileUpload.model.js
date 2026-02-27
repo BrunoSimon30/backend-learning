@@ -1,0 +1,22 @@
+import mongoose from "mongoose";
+ 
+
+const fileUploadSchema = mongoose.Schema(
+    {
+    file: {
+        type: String,
+        required: true,
+    },
+    fileType: {
+        type: String,
+        required: true,
+    },
+    User: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+}, { timestamps: true });
+
+const FileUpload = mongoose.model("FileUpload", fileUploadSchema);
+export default FileUpload;
