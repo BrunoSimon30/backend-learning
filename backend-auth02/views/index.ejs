@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+
+<body class="p-12">
+    <h1 class="text-3xl font-bold text-red-500 underline">
+        <%= username %>
+    </h1>
+
+    <div>
+        <input type="text" id="message" placeholder="Enter your message">
+        <button id="sendMessage" class="bg-green-500 text-white p-2 rounded-md cursor-pointer">send message</button>
+    </div>
+    <button id="sendData" class="bg-blue-500 text-white p-2 rounded-md cursor-pointer">connect</button>
+    <button id="disconnectData" class="bg-red-500 text-white p-2 rounded-md cursor-pointer">diss-conncect from
+        server</button>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"
+        integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0"
+        crossorigin="anonymous"></script>
+    <script>
+
+        const socket = io({ autoConnect: false }); // 👈 pehle connect nahi karega
+
+        let btnconnect = document.getElementById("sendData");
+        let btndisconnect = document.getElementById("disconnectData");
+        let message = document.getElementById("message");
+        let sendMessage = document.getElementById("sendMessage");
+
+
+        sendMessage.addEventListener("click",()=>{
+            socket.emit("message",message.value);
+        })
+
+        btnconnect.addEventListener("click", () => {
+            socket.connect(); 
+        });
+
+        btndisconnect.addEventListener("click", () => {
+            socket.disconnect();  
+        });
+
+        socket.on("connect", () => {
+            console.log("connected to server");
+        });
+
+        socket.on("disconnect", () => {
+            console.log("disconnected from server");
+        });
+    </script>
+</body>
+
+</html>

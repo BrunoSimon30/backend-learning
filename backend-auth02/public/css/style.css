@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Tailwind ko batao ki classes views ki .ejs files mein dhoondo */
+@source "../../views/**/*.ejs";
